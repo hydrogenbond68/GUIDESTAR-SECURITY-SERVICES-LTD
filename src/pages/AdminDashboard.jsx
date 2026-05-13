@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { getUsers, getServices, getReviews, saveService, updateServices, deleteReview } from '../utils/localStorage';
+import { getUsers, getReviews, deleteReview } from '../utils/localStorage';
 import { compressImage, validateImage } from '../utils/imageUtils';
+import { useServices } from '../context/ServiceContext';
 import { FaUsers, FaShieldAlt, FaStar, FaTrash, FaPlus, FaUpload, FaTimes, FaEdit } from 'react-icons/fa';
 
 const AdminDashboard = () => {
+  const { services, addService, updateService, deleteService, refreshServices } = useServices();
   const [stats, setStats] = useState({ totalUsers: 0, totalServices: 0, totalReviews: 0 });
-  const [services, setServices] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [showAddService, setShowAddService] = useState(false);
   const [editingService, setEditingService] = useState(null);
@@ -22,19 +23,17 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [services]); // Re-run when services change
 
   const loadData = () => {
     const users = getUsers();
-    const servicesList = getServices();
     const reviewsList = getReviews();
     
     setStats({
       totalUsers: users.length,
-      totalServices: servicesList.length,
+      totalServices: services.length,
       totalReviews: reviewsList.length
     });
-    setServices(servicesList);
     setReviews(reviewsList);
   };
 
@@ -74,10 +73,9 @@ const AdminDashboard = () => {
       createdAt: new Date().toISOString()
     };
     
-    saveService(service);
-    loadData();
+    addService(service);
     resetForm();
-    showMessage('Service added successfully!');
+    showMessage('Service added successfully! Updates appear everywhere instantly.');
   };
 
   const handleEditService = (service) => {
@@ -98,24 +96,21 @@ const AdminDashboard = () => {
       return;
     }
 
-    const updatedServices = services.map(service => 
-      service.id === editingService.id 
-        ? { ...service, ...newService }
-        : service
-    );
-    updateServices(updatedServices);
-    loadData();
+    const updatedService = {
+      ...editingService,
+      ...newService,
+      updatedAt: new Date().toISOString()
+    };
+    
+    updateService(updatedService);
     resetForm();
-    showMessage('Service updated successfully!');
+    showMessage('Service updated successfully! Updates appear everywhere instantly.');
   };
 
-  // DELETE SERVICE FUNCTION - This is what you need
   const handleDeleteService = (serviceId, serviceName) => {
     if (window.confirm(`Are you sure you want to delete "${serviceName}"? This action cannot be undone.`)) {
-      const updatedServices = services.filter(service => service.id !== serviceId);
-      updateServices(updatedServices);
-      loadData();
-      showMessage(`"${serviceName}" has been deleted successfully!`);
+      deleteService(serviceId);
+      showMessage(`"${serviceName}" has been deleted! Updates appear everywhere instantly.`);
     }
   };
 
@@ -155,6 +150,7 @@ const AdminDashboard = () => {
         <div className="container mx-auto px-4">
           <h1 className="text-3xl font-bold">Admin Dashboard</h1>
           <p className="text-gray-300 mt-2">Manage your security services platform</p>
+          <p className="text-green-300 text-sm mt-1">✓ Changes sync instantly across the entire website</p>
         </div>
       </div>
 
@@ -186,7 +182,7 @@ const AdminDashboard = () => {
         {/* Services Management */}
         <div className="bg-white rounded-lg shadow-lg mb-8">
           <div className="flex justify-between items-center p-6 border-b">
-            <h2 className="text-2xl font-bold text-dark">Manage Services</h2>
+            <h2 className="text-2xl font-bold text-dark">Manage Services ({services.length})</h2>
             <button
               onClick={() => {
                 resetForm();
