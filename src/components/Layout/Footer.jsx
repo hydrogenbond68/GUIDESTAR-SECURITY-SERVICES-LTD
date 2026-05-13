@@ -37,7 +37,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-2">
                 <FaEnvelope className="text-accent" />
-                <span>GUIDESTARSECURITYSERVICESLTD@GMAIL.com</span>
+                <span>guidstarsecurityservicesltd@gmail.com</span>
               </li>
               <li className="flex items-center space-x-2">
                 <FaMapMarkerAlt className="text-accent" />

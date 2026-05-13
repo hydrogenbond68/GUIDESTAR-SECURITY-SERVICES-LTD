@@ -83,7 +83,7 @@ const ContactPage = () => {
             <FaEnvelope className="text-blue-500 text-5xl mx-auto mb-3" />
             <h3 className="text-xl font-bold text-dark mb-2">Email Us</h3>
             <p className="text-gray-500 text-sm mb-2">Within 24 hours</p>
-            <p className="text-primary font-semibold">GUIDESTAR SECURITY SERVICES LTD.com</p>
+            <p className="text-primary font-semibold">guidstarsecurityservicesltd@gmail.com</p>
           </div>
         </div>
       </div>
@@ -141,7 +141,7 @@ const ContactPage = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <FaEnvelope className="text-primary" />
-                  <p className="text-gray-600">gssl@secureguardpro.com</p>
+                  <p className="text-gray-600">guidstarsecurityservicesltd@gmail.com</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <FaGlobe className="text-primary" />
@@ -301,7 +301,7 @@ const ContactPage = () => {
               </div>
               <p className="text-gray-600 mb-2">Upper Hill, Nairobi</p>
               <p className="text-gray-600 mb-1">📞 +254 704 461 031</p>
-              <p className="text-gray-600">📧 gssl@secureguardpro.com</p>
+              <p className="text-gray-600">📧 guidstarsecurityservicesltd@gmail.com</p>
             </div>
             
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
@@ -311,7 +311,7 @@ const ContactPage = () => {
               </div>
               <p className="text-gray-600 mb-2">Mombasa CBD</p>
               <p className="text-gray-600 mb-1">📞 +254 704 461 032</p>
-              <p className="text-gray-600">📧 gssl@secureguardpro.com</p>
+              <p className="text-gray-600">📧 guidstarsecurityservicesltd@gmail.com</p>
             </div>
             
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
@@ -321,7 +321,7 @@ const ContactPage = () => {
               </div>
               <p className="text-gray-600 mb-2">Kisumu CBD</p>
               <p className="text-gray-600 mb-1">📞 +254 704 461 033</p>
-              <p className="text-gray-600">📧 gssl@secureguardpro.com</p>
+              <p className="text-gray-600">📧 guidstarsecurityservicesltd@gmail.com</p>
             </div>
           </div>
         </div>

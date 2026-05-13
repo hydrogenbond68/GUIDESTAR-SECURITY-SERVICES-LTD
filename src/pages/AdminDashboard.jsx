@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { getUsers, getServices, getReviews, saveService, updateServices, deleteReview } from '../utils/localStorage';
 import { compressImage, validateImage } from '../utils/imageUtils';
-import { FaUsers, FaShieldAlt, FaStar, FaTrash, FaPlus, FaUpload, FaTimes } from 'react-icons/fa';
+import { FaUsers, FaShieldAlt, FaStar, FaTrash, FaPlus, FaUpload, FaTimes, FaEdit } from 'react-icons/fa';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({ totalUsers: 0, totalServices: 0, totalReviews: 0 });
   const [services, setServices] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [showAddService, setShowAddService] = useState(false);
+  const [editingService, setEditingService] = useState(null);
   const [newService, setNewService] = useState({
     name: '',
     description: '',
@@ -17,6 +18,7 @@ const AdminDashboard = () => {
   const [imagePreview, setImagePreview] = useState('');
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('success');
 
   useEffect(() => {
     loadData();
@@ -36,6 +38,12 @@ const AdminDashboard = () => {
     setReviews(reviewsList);
   };
 
+  const showMessage = (msg, type = 'success') => {
+    setMessage(msg);
+    setMessageType(type);
+    setTimeout(() => setMessage(''), 3000);
+  };
+
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -46,11 +54,9 @@ const AdminDashboard = () => {
       const compressedImage = await compressImage(file);
       setImagePreview(compressedImage);
       setNewService({ ...newService, image: compressedImage });
-      setMessage('Image uploaded successfully!');
-      setTimeout(() => setMessage(''), 3000);
+      showMessage('Image uploaded successfully!');
     } catch (error) {
-      setMessage(error.message);
-      setTimeout(() => setMessage(''), 3000);
+      showMessage(error.message, 'error');
     } finally {
       setUploading(false);
     }
@@ -58,8 +64,7 @@ const AdminDashboard = () => {
 
   const handleAddService = async () => {
     if (!newService.name || !newService.description || !newService.image) {
-      setMessage('Please fill all fields and upload an image');
-      setTimeout(() => setMessage(''), 3000);
+      showMessage('Please fill all fields and upload an image', 'error');
       return;
     }
 
@@ -71,26 +76,77 @@ const AdminDashboard = () => {
     
     saveService(service);
     loadData();
-    setShowAddService(false);
-    setNewService({ name: '', description: '', image: '', icon: '🛡️' });
-    setImagePreview('');
-    setMessage('Service added successfully!');
-    setTimeout(() => setMessage(''), 3000);
+    resetForm();
+    showMessage('Service added successfully!');
+  };
+
+  const handleEditService = (service) => {
+    setEditingService(service);
+    setNewService({
+      name: service.name,
+      description: service.description,
+      image: service.image,
+      icon: service.icon
+    });
+    setImagePreview(service.image);
+    setShowAddService(true);
+  };
+
+  const handleUpdateService = () => {
+    if (!newService.name || !newService.description) {
+      showMessage('Please fill all fields', 'error');
+      return;
+    }
+
+    const updatedServices = services.map(service => 
+      service.id === editingService.id 
+        ? { ...service, ...newService }
+        : service
+    );
+    updateServices(updatedServices);
+    loadData();
+    resetForm();
+    showMessage('Service updated successfully!');
+  };
+
+  // DELETE SERVICE FUNCTION - This is what you need
+  const handleDeleteService = (serviceId, serviceName) => {
+    if (window.confirm(`Are you sure you want to delete "${serviceName}"? This action cannot be undone.`)) {
+      const updatedServices = services.filter(service => service.id !== serviceId);
+      updateServices(updatedServices);
+      loadData();
+      showMessage(`"${serviceName}" has been deleted successfully!`);
+    }
   };
 
   const handleDeleteReview = (reviewId) => {
     if (window.confirm('Are you sure you want to delete this review?')) {
       deleteReview(reviewId);
       loadData();
-      setMessage('Review deleted successfully!');
-      setTimeout(() => setMessage(''), 3000);
+      showMessage('Review deleted successfully!');
     }
+  };
+
+  const resetForm = () => {
+    setShowAddService(false);
+    setEditingService(null);
+    setNewService({ name: '', description: '', image: '', icon: '🛡️' });
+    setImagePreview('');
   };
 
   const statCards = [
     { icon: <FaUsers />, label: 'Total Users', value: stats.totalUsers, color: 'bg-blue-500' },
     { icon: <FaShieldAlt />, label: 'Total Services', value: stats.totalServices, color: 'bg-green-500' },
     { icon: <FaStar />, label: 'Total Reviews', value: stats.totalReviews, color: 'bg-yellow-500' }
+  ];
+
+  const iconOptions = [
+    { value: '🛡️', label: '🛡️ Shield' },
+    { value: '📹', label: '📹 Camera' },
+    { value: '🐕', label: '🐕 Dog' },
+    { value: '🔒', label: '🔒 Lock' },
+    { value: '👮', label: '👮 Officer' },
+    { value: '🐕‍🦺', label: '🐕‍🦺 Security Dog' }
   ];
 
   return (
@@ -122,7 +178,7 @@ const AdminDashboard = () => {
 
         {/* Message */}
         {message && (
-          <div className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+          <div className={`mb-4 ${messageType === 'success' ? 'bg-green-100 border-green-400 text-green-700' : 'bg-red-100 border-red-400 text-red-700'} px-4 py-3 rounded relative border`}>
             {message}
           </div>
         )}
@@ -132,20 +188,25 @@ const AdminDashboard = () => {
           <div className="flex justify-between items-center p-6 border-b">
             <h2 className="text-2xl font-bold text-dark">Manage Services</h2>
             <button
-              onClick={() => setShowAddService(!showAddService)}
+              onClick={() => {
+                resetForm();
+                setShowAddService(true);
+              }}
               className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors flex items-center gap-2"
             >
               <FaPlus /> Add New Service
             </button>
           </div>
 
-          {/* Add Service Form */}
+          {/* Add/Edit Service Form */}
           {showAddService && (
             <div className="p-6 border-b bg-gray-50">
-              <h3 className="text-xl font-semibold mb-4">Add New Service</h3>
+              <h3 className="text-xl font-semibold mb-4">
+                {editingService ? 'Edit Service' : 'Add New Service'}
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-gray-700 mb-2">Service Name</label>
+                  <label className="block text-gray-700 mb-2">Service Name *</label>
                   <input
                     type="text"
                     value={newService.name}
@@ -155,22 +216,19 @@ const AdminDashboard = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-700 mb-2">Icon (Choose one)</label>
+                  <label className="block text-gray-700 mb-2">Icon</label>
                   <select
                     value={newService.icon}
                     onChange={(e) => setNewService({ ...newService, icon: e.target.value })}
                     className="input-field"
                   >
-                    <option value="🛡️">🛡️ Shield</option>
-                    <option value="📹">📹 Camera</option>
-                    <option value="🐕">🐕 Dog</option>
-                    <option value="🔒">🔒 Lock</option>
-                    <option value="👮">👮 Officer</option>
-                    <option value="🐕‍🦺">🐕‍🦺 Security Dog</option>
+                    {iconOptions.map(option => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
                   </select>
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-gray-700 mb-2">Description</label>
+                  <label className="block text-gray-700 mb-2">Description *</label>
                   <textarea
                     value={newService.description}
                     onChange={(e) => setNewService({ ...newService, description: e.target.value })}
@@ -184,7 +242,7 @@ const AdminDashboard = () => {
                   <div className="flex items-center gap-4">
                     <label className="cursor-pointer bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg transition-colors">
                       <FaUpload className="inline mr-2" />
-                      Upload Image
+                      {editingService && newService.image ? 'Change Image' : 'Upload Image'}
                       <input
                         type="file"
                         accept="image/*"
@@ -211,41 +269,71 @@ const AdminDashboard = () => {
                 </div>
               </div>
               <div className="mt-4 flex gap-2">
-                <button onClick={handleAddService} className="btn-primary">
-                  Add Service
-                </button>
-                <button
-                  onClick={() => {
-                    setShowAddService(false);
-                    setImagePreview('');
-                    setNewService({ name: '', description: '', image: '', icon: '🛡️' });
-                  }}
-                  className="btn-secondary"
+                <button 
+                  onClick={editingService ? handleUpdateService : handleAddService} 
+                  className="btn-primary"
                 >
+                  {editingService ? 'Update Service' : 'Add Service'}
+                </button>
+                <button onClick={resetForm} className="btn-secondary">
                   Cancel
                 </button>
               </div>
             </div>
           )}
 
-          {/* Services List */}
+          {/* Services List with Delete & Edit Buttons */}
           <div className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {services.map((service) => (
-                <div key={service.id} className="border rounded-lg p-4 hover:shadow-lg transition-shadow">
-                  <img src={service.image} alt={service.name} className="h-40 w-full object-cover rounded-lg mb-3" />
-                  <h4 className="font-semibold text-lg">{service.name}</h4>
-                  <p className="text-gray-600 text-sm mt-1">{service.description.substring(0, 100)}...</p>
-                </div>
-              ))}
-            </div>
+            {services.length === 0 ? (
+              <p className="text-center text-gray-500 py-8">No services added yet. Click "Add New Service" to get started.</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {services.map((service) => (
+                  <div key={service.id} className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow bg-white relative">
+                    <div className="relative h-48">
+                      <img 
+                        src={service.image} 
+                        alt={service.name} 
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "https://placehold.co/600x400/1e3a8a/white?text=Service+Image";
+                        }}
+                      />
+                      {/* Action Buttons Overlay */}
+                      <div className="absolute top-2 right-2 flex gap-2">
+                        <button
+                          onClick={() => handleEditService(service)}
+                          className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors"
+                          title="Edit Service"
+                        >
+                          <FaEdit />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteService(service.id, service.name)}
+                          className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
+                          title="Delete Service"
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <div className="text-3xl mb-2">{service.icon}</div>
+                      <h3 className="font-bold text-lg text-dark mb-2">{service.name}</h3>
+                      <p className="text-gray-600 text-sm">{service.description.substring(0, 100)}...</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
         {/* Reviews Management */}
         <div className="bg-white rounded-lg shadow-lg">
           <div className="p-6 border-b">
-            <h2 className="text-2xl font-bold text-dark">Manage Reviews</h2>
+            <h2 className="text-2xl font-bold text-dark">Manage Reviews ({reviews.length})</h2>
           </div>
           <div className="p-6">
             {reviews.length === 0 ? (
@@ -255,7 +343,7 @@ const AdminDashboard = () => {
                 {reviews.map((review) => (
                   <div key={review.id} className="border-b pb-4 flex justify-between items-start">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
                         <span className="font-semibold">{review.userName}</span>
                         <span className="text-yellow-400">{"★".repeat(review.rating)}{"☆".repeat(5-review.rating)}</span>
                         <span className="text-gray-400 text-sm">{new Date(review.createdAt).toLocaleDateString()}</span>
@@ -264,7 +352,8 @@ const AdminDashboard = () => {
                     </div>
                     <button
                       onClick={() => handleDeleteReview(review.id)}
-                      className="text-red-500 hover:text-red-700 transition-colors ml-4"
+                      className="text-red-500 hover:text-red-700 transition-colors ml-4 p-2"
+                      title="Delete Review"
                     >
                       <FaTrash />
                     </button>
