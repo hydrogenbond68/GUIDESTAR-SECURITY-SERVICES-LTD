@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { getUsers, getReviews, deleteReview } from '../utils/localStorage';
+import { useAuth } from '../context/AuthContext';
+import { getUsers, getReviews, deleteReview, clearAllStorage } from '../utils/localStorage';
 import { compressImage, validateImage } from '../utils/imageUtils';
 import { useServices } from '../context/ServiceContext';
-import { FaUsers, FaShieldAlt, FaStar, FaTrash, FaPlus, FaUpload, FaTimes, FaEdit } from 'react-icons/fa';
+import { FaUsers, FaShieldAlt, FaStar, FaTrash, FaPlus, FaUpload, FaTimes, FaEdit, FaSignOutAlt, FaSync } from 'react-icons/fa';
 
 const AdminDashboard = () => {
+  const { logout } = useAuth();
   const { services, addService, updateService, deleteService, refreshServices } = useServices();
   const [stats, setStats] = useState({ totalUsers: 0, totalServices: 0, totalReviews: 0 });
   const [reviews, setReviews] = useState([]);
@@ -137,6 +139,12 @@ const AdminDashboard = () => {
     setImagePreview('');
   };
 
+  const handleReset = () => {
+    if (window.confirm('Are you sure you want to reset all system data? This will clear all users and reviews, and reset services to defaults.')) {
+      clearAllStorage();
+    }
+  };
+
   const statCards = [
     { icon: <FaUsers />, label: 'Total Users', value: stats.totalUsers, color: 'bg-blue-500' },
     { icon: <FaShieldAlt />, label: 'Total Services', value: stats.totalServices, color: 'bg-green-500' },
@@ -156,9 +164,28 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-dark text-white py-8">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-          <p className="text-gray-300 mt-2">Manage your security services platform</p>
-          <p className="text-green-300 text-sm mt-1">✓ Changes sync instantly across the entire website</p>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+              <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+              <p className="text-gray-300 mt-2">Manage your security services platform</p>
+              <p className="text-green-300 text-sm mt-1">✓ Changes sync instantly across the entire website</p>
+            </div>
+            <div className="flex gap-4">
+              <button
+                onClick={handleReset}
+                className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+                title="Reset all data to defaults"
+              >
+                <FaSync /> Reset System
+              </button>
+              <button 
+                onClick={logout}
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+              >
+                <FaSignOutAlt /> Logout
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

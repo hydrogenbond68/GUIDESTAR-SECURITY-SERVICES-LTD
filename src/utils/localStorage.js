@@ -48,18 +48,31 @@ const defaultServices = [
   }
 ];
 
+const STORAGE_VERSION = '1.1'; // Increment this to force reset on all clients
+const VERSION_KEY = 'security_version';
+
 export const initializeStorage = () => {
+  const currentVersion = localStorage.getItem(VERSION_KEY);
+  
+  if (currentVersion !== STORAGE_VERSION) {
+    // Version mismatch or first run - update services to latest defaults
+    localStorage.setItem(SERVICES_KEY, JSON.stringify(defaultServices));
+    localStorage.setItem(VERSION_KEY, STORAGE_VERSION);
+    window.dispatchEvent(new Event('storage'));
+  }
+
   if (!localStorage.getItem(USERS_KEY)) {
     localStorage.setItem(USERS_KEY, JSON.stringify([]));
-  }
-  
-  if (!localStorage.getItem(SERVICES_KEY)) {
-    localStorage.setItem(SERVICES_KEY, JSON.stringify(defaultServices));
   }
   
   if (!localStorage.getItem(REVIEWS_KEY)) {
     localStorage.setItem(REVIEWS_KEY, JSON.stringify([]));
   }
+};
+
+export const clearAllStorage = () => {
+  localStorage.clear();
+  window.location.reload();
 };
 
 export const getUsers = () => {
