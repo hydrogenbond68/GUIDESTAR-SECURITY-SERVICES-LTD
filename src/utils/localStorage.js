@@ -48,7 +48,7 @@ const defaultServices = [
   }
 ];
 
-const STORAGE_VERSION = '1.1'; // Increment this to force reset on all clients
+const STORAGE_VERSION = '1.2'; // Force reset for new local service images
 const VERSION_KEY = 'security_version';
 
 export const initializeStorage = () => {

@@ -185,24 +185,33 @@ const AboutPage = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">Message from Our CEO</h2>
               <p className="text-gray-600 text-lg">Leadership that drives excellence</p>
             </div>
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div className="bg-gradient-to-r from-primary to-secondary p-8 text-white text-center">
-                <FaHeart className="text-5xl mx-auto mb-4" />
-                <h3 className="text-2xl md:text-3xl font-bold mb-2">{ceo.name}</h3>
-                <p className="text-lg opacity-90">{ceo.role}</p>
-                <p className="text-md mt-2">{ceo.experience}</p>
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+              <div className="md:w-2/5 h-[400px] md:h-auto">
+                <img 
+                  src="https://i.postimg.cc/CM4YLXS4/Chat-GPT-Image-Apr-22-2026-12-21-19-PM.png" 
+                  alt={ceo.name} 
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: '75% 15%' }}
+                />
               </div>
-              <div className="p-8">
-                <p className="text-gray-700 text-lg italic leading-relaxed mb-6">
-                  "{ceo.vision}"
-                </p>
-                <p className="text-gray-600 leading-relaxed">
-                  {ceo.message}
-                </p>
-                <div className="mt-6 pt-6 border-t text-center">
-                  <Link to="/contact" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-secondary transition-all">
-                    Get in Touch <FaArrowRight />
-                  </Link>
+              <div className="md:w-3/5">
+                <div className="bg-gradient-to-r from-primary to-secondary p-8 text-white">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2">{ceo.name}</h3>
+                  <p className="text-lg opacity-90">{ceo.role}</p>
+                  <p className="text-md mt-2">{ceo.experience}</p>
+                </div>
+                <div className="p-8">
+                  <p className="text-gray-700 text-lg italic leading-relaxed mb-6">
+                    "{ceo.vision}"
+                  </p>
+                  <p className="text-gray-600 leading-relaxed">
+                    {ceo.message}
+                  </p>
+                  <div className="mt-6 pt-6 border-t text-center md:text-left">
+                    <Link to="/contact" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-secondary transition-all">
+                      Get in Touch <FaArrowRight />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

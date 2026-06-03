@@ -9,7 +9,7 @@ const Hero = () => {
   useEffect(() => {
     // Preload the image to check if it loads
     const img = new Image();
-    img.src = 'https://i.postimg.cc/CM4YLXS4/Chat-GPT-Image-Apr-22-2026-12-21-19-PM.png';
+    img.src = '/images/hero-bg.jpg';
     img.onload = () => setImageLoaded(true);
     img.onerror = () => setImageError(true);
   }, []);
@@ -18,14 +18,14 @@ const Hero = () => {
     <div className="relative h-screen min-h-[600px] max-h-[800px] text-white">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-no-repeat"
         style={{
           backgroundImage: !imageError 
-            ? `url('https://i.postimg.cc/CM4YLXS4/Chat-GPT-Image-Apr-22-2026-12-21-19-PM.png')`
+            ? `url('/images/hero-bg.jpg')`
             : `url('https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?w=1600')`,
           backgroundAttachment: 'fixed',
           backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          backgroundPosition: 'center 20%'
         }}
       >
         {/* Dark Overlay for better text visibility */}
