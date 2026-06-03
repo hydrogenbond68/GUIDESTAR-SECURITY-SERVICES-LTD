@@ -18,18 +18,18 @@ const ServiceDetailPage = () => {
 
   const handleWhatsApp = () => {
     const message = `Hello, I'm interested in your ${service?.name} service. Can you please provide more information?`;
-    const whatsappUrl = `https://wa.me/1234567890?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/254704461031?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
   const handleEmail = () => {
     const subject = `Inquiry about ${service?.name} service`;
     const body = `Hello,\n\nI'm interested in your ${service?.name} service. Could you please provide more details?\n\nThank you.`;
-    window.location.href = `mailto:info@secureguardpro.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:guidstarsecurityservicesltd@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   const handleCall = () => {
-    window.location.href = 'tel:+15551234567';
+    window.location.href = 'tel:+254704461031';
   };
 
   if (loading) {

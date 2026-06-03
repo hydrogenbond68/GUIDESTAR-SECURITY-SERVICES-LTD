@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
 import Logo from '../Common/Logo';
 
@@ -21,9 +22,11 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="/" className="hover:text-accent transition-colors">Home</a></li>
-              <li><a href="/services" className="hover:text-accent transition-colors">Services</a></li>
-              <li><a href="/login" className="hover:text-accent transition-colors">Login</a></li>
+              <li><Link to="/" className="hover:text-accent transition-colors">Home</Link></li>
+              <li><Link to="/about" className="hover:text-accent transition-colors">About Us</Link></li>
+              <li><Link to="/services" className="hover:text-accent transition-colors">Services</Link></li>
+              <li><Link to="/contact" className="hover:text-accent transition-colors">Contact</Link></li>
+              <li><Link to="/login" className="hover:text-accent transition-colors">Client Login</Link></li>
             </ul>
           </div>
 
@@ -64,7 +67,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
-          <p>&copy; 2025 SGUIDESTAR SECURITY SERVICES LTD. All rights reserved.</p>
+          <p>&copy; 2025 GUIDESTAR SECURITY SERVICES LTD. All rights reserved.</p>
         </div>
       </div>
     </footer>

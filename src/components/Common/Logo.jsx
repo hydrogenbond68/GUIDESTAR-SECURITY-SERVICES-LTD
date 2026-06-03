@@ -6,7 +6,8 @@ const Logo = ({ className = "h-12 w-auto", showText = false, textColor = "text-w
 
   // Try multiple logo paths
   const logoPaths = [
-    '/public/images/logo.png',
+    '/logo.png',
+    '/images/logo.png'
   ];
 
   useEffect(() => {
@@ -34,10 +35,9 @@ const Logo = ({ className = "h-12 w-auto", showText = false, textColor = "text-w
   if (imageError) {
     return (
       <div className={`flex items-center space-x-2 ${className}`}>
-        <div className="bg-gradient-to-r from-primary to-accent px-4 py-2 rounded-lg">
-          <span className="text-white font-bold">🛡️ GUIDESTAR SECURITY SERVICES LTD</span>
+        <div className="bg-gradient-to-r from-primary to-accent px-4 py-2 rounded-lg text-center">
+          <span className="text-white font-bold text-xs md:text-sm">GUIDESTAR SECURITY SERVICES LTD</span>
         </div>
-        {showText && <span className={textColor}>GUIDESTAR SECURITY SERVICES LTD</span>}
       </div>
     );
   }
@@ -46,11 +46,11 @@ const Logo = ({ className = "h-12 w-auto", showText = false, textColor = "text-w
     <div className="flex items-center space-x-2">
       <img 
         src={imageSrc} 
-        alt="SecureGuard Pro" 
+        alt="GUIDESTAR SECURITY SERVICES LTD" 
         className={className}
         style={{ objectFit: 'contain' }}
       />
-      {showText && <span className={textColor}>SecureGuard Pro</span>}
+      {showText && <span className={textColor}>GUIDESTAR SECURITY SERVICES LTD</span>}
     </div>
   );
 };

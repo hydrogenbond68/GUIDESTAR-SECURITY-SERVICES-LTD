@@ -4,12 +4,12 @@ import { getServices } from '../utils/localStorage';
 import { FaShieldAlt, FaVideo, FaDog, FaLock, FaUsers, FaPaw } from 'react-icons/fa';
 
 const iconMap = {
-  '1': 'https://your-new-image-1.jpg',
-  '2': 'https://your-new-image-2.jpg',
-  '3': 'https://your-new-image-3.jpg',
-  '4': 'https://your-new-image-4.jpg',
-  '5': 'https://your-new-image-5.jpg',
-  '6': 'https://your-new-image-6.jpg'
+  '🛡️': <FaShieldAlt />,
+  '📹': <FaVideo />,
+  '🐕': <FaDog />,
+  '🔒': <FaLock />,
+  '👮': <FaUsers />,
+  '🐕‍🦺': <FaPaw />
 };
 
 const ServicesPage = () => {
@@ -47,10 +47,10 @@ const ServicesPage = () => {
                 <img
                   src={service.image}
                   alt={service.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:object-contain transition-all duration-500 bg-gray-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white text-4xl">
+                <div className="absolute bottom-4 left-4 text-white text-3xl md:text-4xl">
                   {iconMap[service.icon] || <FaShieldAlt />}
                 </div>
               </div>

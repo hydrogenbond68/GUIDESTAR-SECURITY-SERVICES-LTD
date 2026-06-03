@@ -145,7 +145,7 @@ const ContactPage = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <FaGlobe className="text-primary" />
-                  <p className="text-gray-600">www.secureguardpro.com</p>
+                  <p className="text-gray-600">https://guidestar-security-services-ltd.vercel.app/</p>
                 </div>
               </div>
             </div>

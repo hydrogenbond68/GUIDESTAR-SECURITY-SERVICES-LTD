@@ -40,7 +40,7 @@ const AboutPage = () => {
     role: 'CEO & Founder',
     experience: '20+ years in security industry',
     vision: 'To revolutionize security services in Africa through innovation, training, and unwavering commitment to client safety.',
-    message: 'At SecureGuard Pro, we understand that security is not just about protection - it\'s about creating an environment where you can focus on what matters most.'
+    message: 'At Guidestar Security Services, we understand that security is not just about protection - it\'s about creating an environment where you can focus on what matters most.'
   };
 
   return (
@@ -49,7 +49,7 @@ const AboutPage = () => {
       <div className="relative bg-gradient-to-r from-dark to-primary text-white py-16 md:py-24">
         <div className="absolute inset-0 bg-black opacity-40"></div>
         <div className="relative container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">About SecureGuard Pro</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">About Guidestar Security Services</h1>
           <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto px-4">
             Kenya's leading security solutions provider with over 20 years of excellence in protecting what matters most.
           </p>
@@ -140,7 +140,7 @@ const AboutPage = () => {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">Why Choose Us?</h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              What makes SecureGuard Pro the preferred security partner for hundreds of clients
+              What makes Guidestar Security Services the preferred security partner for hundreds of clients
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">

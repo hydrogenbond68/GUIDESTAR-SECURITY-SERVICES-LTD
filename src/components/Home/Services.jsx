@@ -73,7 +73,7 @@ const Services = () => {
                   <img
                     src={service.image}
                     alt={service.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:object-contain transition-all duration-500 bg-gray-100"
                     loading="lazy"
                     onError={(e) => {
                       e.target.onerror = null;

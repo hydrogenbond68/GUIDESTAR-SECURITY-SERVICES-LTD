@@ -23,6 +23,14 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     loadData();
+    
+    // Listen for storage events (updates from other tabs/components)
+    const handleStorageChange = () => {
+      loadData();
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, [services]); // Re-run when services change
 
   const loadData = () => {

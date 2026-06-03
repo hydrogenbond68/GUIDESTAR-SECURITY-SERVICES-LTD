@@ -16,6 +16,7 @@ const RegisterPage = lazy(() => import('./pages/RegisterPage'));
 const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -52,6 +53,7 @@ function App() {
                       </ProtectedRoute>
                     } 
                   />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </main>
