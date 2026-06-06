@@ -154,7 +154,7 @@ const ContactPage = () => {
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <h3 className="text-xl font-bold text-dark mb-4">Follow Us</h3>
               <div className="flex gap-3">
-                <a href="https://www.facebook.com/GuideStarSecurityServicesLtd" target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-all transform hover:scale-110">
+                <a href="https://www.facebook.com/www.meridiannservices1900.co.ke" target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-all transform hover:scale-110">
                   <FaFacebook className="text-xl" />
                 </a>
                 <a href="https://x.com/GuideStarSecurity" target="_blank" rel="noopener noreferrer" className="bg-sky-500 text-white p-3 rounded-full hover:bg-sky-600 transition-all transform hover:scale-110">
