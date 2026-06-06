@@ -18,7 +18,7 @@ const ContactPage = () => {
   };
 
   const handleEmail = () => {
-    window.location.href = 'mailto:info@secureguardpro.com?subject=Security Services Inquiry';
+    window.location.href = 'mailto:guidstarsecurityservicesltd@gmail.com?subject=Security Services Inquiry';
   };
 
   const handleCall = () => {
@@ -133,7 +133,7 @@ const ContactPage = () => {
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <FaMapMarkerAlt className="text-primary mt-1" />
-                  <p className="text-gray-600">Upper Hill, Nairobi, Kenya</p>
+                  <p className="text-gray-600">Lower Kabete, Nairobi, Kenya</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <FaPhoneAlt className="text-primary" />
@@ -154,13 +154,13 @@ const ContactPage = () => {
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <h3 className="text-xl font-bold text-dark mb-4">Follow Us</h3>
               <div className="flex gap-3">
-                <a href="#" className="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-all transform hover:scale-110">
+                <a href="https://www.facebook.com/GuideStarSecurityServicesLtd" target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-all transform hover:scale-110">
                   <FaFacebook className="text-xl" />
                 </a>
-                <a href="#" className="bg-sky-500 text-white p-3 rounded-full hover:bg-sky-600 transition-all transform hover:scale-110">
+                <a href="https://x.com/GuideStarSecurity" target="_blank" rel="noopener noreferrer" className="bg-sky-500 text-white p-3 rounded-full hover:bg-sky-600 transition-all transform hover:scale-110">
                   <FaTwitter className="text-xl" />
                 </a>
-                <a href="#" className="bg-blue-700 text-white p-3 rounded-full hover:bg-blue-800 transition-all transform hover:scale-110">
+                <a href="https://www.linkedin.com/company/guide-star-security-services-ltd" target="_blank" rel="noopener noreferrer" className="bg-blue-700 text-white p-3 rounded-full hover:bg-blue-800 transition-all transform hover:scale-110">
                   <FaLinkedin className="text-xl" />
                 </a>
                 <button onClick={handleWhatsApp} className="bg-green-500 text-white p-3 rounded-full hover:bg-green-600 transition-all transform hover:scale-110">
@@ -290,37 +290,17 @@ const ContactPage = () => {
       <div className="bg-gray-100 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">Our Branch Locations</h2>
-            <p className="text-gray-600 text-lg">Find a branch near you</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">Our Location</h2>
+            <p className="text-gray-600 text-lg">Visit our main office in Nairobi</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-              <div className="flex items-center gap-3 mb-4">
+          <div className="max-w-md mx-auto">
+            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow text-center">
+              <div className="flex items-center justify-center gap-3 mb-4">
                 <FaBuilding className="text-primary text-2xl" />
-                <h3 className="text-xl font-bold text-dark">Nairobi</h3>
+                <h3 className="text-xl font-bold text-dark">Nairobi Office</h3>
               </div>
-              <p className="text-gray-600 mb-2">Upper Hill, Nairobi</p>
+              <p className="text-gray-600 mb-2 font-semibold">Lower Kabete, Nairobi</p>
               <p className="text-gray-600 mb-1">📞 +254 704 461 031</p>
-              <p className="text-gray-600">📧 guidstarsecurityservicesltd@gmail.com</p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-              <div className="flex items-center gap-3 mb-4">
-                <FaBuilding className="text-primary text-2xl" />
-                <h3 className="text-xl font-bold text-dark">Mombasa</h3>
-              </div>
-              <p className="text-gray-600 mb-2">Mombasa CBD</p>
-              <p className="text-gray-600 mb-1">📞 +254 704 461 032</p>
-              <p className="text-gray-600">📧 guidstarsecurityservicesltd@gmail.com</p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-              <div className="flex items-center gap-3 mb-4">
-                <FaBuilding className="text-primary text-2xl" />
-                <h3 className="text-xl font-bold text-dark">Kisumu</h3>
-              </div>
-              <p className="text-gray-600 mb-2">Kisumu CBD</p>
-              <p className="text-gray-600 mb-1">📞 +254 704 461 033</p>
               <p className="text-gray-600">📧 guidstarsecurityservicesltd@gmail.com</p>
             </div>
           </div>
@@ -348,7 +328,7 @@ const ContactPage = () => {
           </div>
           <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
             <h4 className="font-bold text-primary text-lg mb-2">What areas do you serve?</h4>
-            <p className="text-gray-600">We serve all major cities in Kenya including Nairobi, Mombasa, and Kisumu.</p>
+            <p className="text-gray-600">We are based in Nairobi and serve clients across major towns in Kenya.</p>
           </div>
         </div>
       </div>
